@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 		user_pass = getpass(prompt);
 
 		if(mygetpwnam(user) == NULL){
-			//printf("WRONG USER\n");
+			printf("Login Incorrect \n");
 			continue;
 		}
 		passwddata = mygetpwnam(user); //mypwent struct
