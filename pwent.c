@@ -106,3 +106,26 @@ int mysetpwent(char *name, mypwent *pw) {
 
 	return status;
 }
+
+
+void reset_failed (char *name, mypwent *pw){
+	mypwent *aux = pw; //aux copy of mypwent
+	aux->pwfailed = 0; //resetted value in aux
+	mysetpwent(name, aux); //plug it into database
+
+	//@TODO erase if useless
+	//printf("Failed attempts reset. Now = %d \n", )
+}
+
+void age_pass (char *name, mypwent *pw){
+	mypwent *aux = pw;
+	aux->pwage ++;
+	mysetpwent(name, aux);
+}
+
+void failed_attmpt (char *name, mypwent *pw){
+		//needs a checking for username not found in database
+	mypwent *aux = pw;
+	aux->pwfailed ++;
+	mysetpwent(name, aux);
+}
