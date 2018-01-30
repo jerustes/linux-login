@@ -48,6 +48,10 @@ int main(int argc, char *argv[]) {
 	char prompt[] = "password: ";
 	char *user_pass;
 
+	//shell
+	char *const args[2] = {"/bin/sh" , NULL};
+	const char *command = "/bin/sh";
+
 	//Password age
 	int limit_age = 10;
 	//Failed attempts
@@ -122,9 +126,21 @@ int main(int argc, char *argv[]) {
 				}
 
 				printf(" You're in !\n");
+
+				if(setuid(passwddata->uid) == 0){ //the uid setting works correctly
+					printf("Opening shell...\n");
+
+					if(!execve(command, args, NULL)){ //shell opening
+						printf("failed to open shell.\n");
+					}
+
+				}else{
+					printf("Failed to set uid.\n");
+				}
 				break;
 				/*  check UID, see setuid(2) */
 				/*  start a shell, use execve(2) */
+
 
 			}
 		}
@@ -134,7 +150,8 @@ int main(int argc, char *argv[]) {
 
 		//Brute force limits
 			//soft limit
-		if(passwddata->pwfailed >= limit_attmp && passwddata->pwfailed < HARD_L){ //Failed too much, give penalty!
+		if(passwddata->pwfailed >= limit_attmp && passwddata->pwfailed < HARD_L){ 
+				//Failed too much, give penalty!
 			i_penalty = PENALTY;
 			printf("Too many failed attempts");
 
@@ -167,6 +184,3 @@ int main(int argc, char *argv[]) {
 	}
 	return 0;
 }
-
-
-
