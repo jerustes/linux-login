@@ -47,9 +47,4 @@ typedef struct {
 mypwent *mygetpwnam(char *name); /* Find entry matching username */
 int mysetpwent(char *name, mypwent *pw); /* Set entry based on uid */
 
-void reset_failed (char *name, mypwent *pw);
-void age_pass (char *name, mypwent *pw);
-void failed_attmpt (char *name, mypwent *pw);
-
-
 #endif
